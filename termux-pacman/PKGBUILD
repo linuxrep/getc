@@ -1,0 +1,14 @@
+pkgname=getc
+pkgver=1.0
+pkgrel=1
+pkgdesc="Alternative Curl"
+url="getc"
+license=('MIT')
+arch=('x86_64' 'i686' 'armv7h' 'aarch64')
+depends=(bash)
+source=('-.tar.gz')
+sha256sums=('SKIP')
+
+package() {
+    install -Dm755 "$srcdir/-//data/data/com.termux/files/usr/bin/" "$pkgdir//data/data/com.termux/files/usr/bin/"
+}

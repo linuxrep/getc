@@ -1,0 +1,37 @@
+name: Build APT Package
+
+on:
+  push:
+    paths:
+      - 'termux-apt/**'
+  pull_request:
+    paths:
+      - 'termux-apt/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y dpkg-dev debhelper
+
+    - name: Build APT Package
+      run: |
+        cd apt
+        dpkg-deb --build . .
+
+    - name: Upload APT Package to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./apt/*.deb
+        asset_name: apt-package.deb
+        asset_content_type: application/vnd.debian.binary-package

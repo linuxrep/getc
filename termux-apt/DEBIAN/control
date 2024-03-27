@@ -1,0 +1,5 @@
+Package: getc
+Version: 1.0
+Maintainer: kevin krefting <kakrefting@gmail.com>
+Architecture: all
+Description: An Easy Curl Alternative
